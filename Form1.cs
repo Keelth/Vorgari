@@ -18,10 +18,6 @@ namespace Vorgari {
             InitializeComponent();
         }
 
-        public async Task StartAsync() {
-
-        }
-
         private async void connect_btn_Click(object sender, EventArgs e) {
             _client = new DiscordSocketClient(new DiscordSocketConfig() {
                 LogLevel = LogSeverity.Verbose
