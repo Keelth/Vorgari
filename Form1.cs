@@ -14,20 +14,53 @@ namespace Vorgari {
     public partial class Form1: Form {
 
         private DiscordSocketClient _client;
+        private static readonly Form1 instance = new Form1();
+
+        public static Form1 Instance {
+            get {
+                return instance;
+            }
+        }
+
+
         public Form1() {
             InitializeComponent();
         }
 
         private async void connect_btn_Click(object sender, EventArgs e) {
             _client = new DiscordSocketClient(new DiscordSocketConfig() {
-                LogLevel = LogSeverity.Verbose
+                LogLevel = LogSeverity.Verbose,
+                MessageCacheSize = 100
             });
 
             _client.Log += Client_Log;
 
             await _client.LoginAsync(TokenType.Bot, Environment.GetEnvironmentVariable("VORGARI_BOT"));
             await _client.StartAsync();
+            _client.MessageUpdated += MessageUpdated;
+            _client.ReactionAdded += HandleReactionAddedAsync;
             await Task.Delay(-1);
+        }
+
+        public async Task HandleReactionAddedAsync(Cacheable<IUserMessage, ulong> cachedMessage,
+            ISocketMessageChannel originChannel,
+            SocketReaction reaction) {
+            var message = await cachedMessage.GetOrDownloadAsync();
+            if (message != null && reaction.User.IsSpecified && message.Id == 717189399124770826) {
+                Invoke((Action)delegate {
+                    console_output_rt.AppendText($"{DateTime.Now.TimeOfDay.ToString().Split('.')[0]} {reaction.User.Value} just added a reaction '{reaction.Emote}' " +
+                      $"to {message.Author}'s message ({message.Id}). \n");
+                    ((SocketGuildUser)reaction.User).AddRoleAsync(((SocketGuildChannel)originChannel).Guild.GetRole(717536020446314507));
+                });
+            }
+        }
+
+        private async Task MessageUpdated(Cacheable<IMessage, ulong> before,
+            SocketMessage after, ISocketMessageChannel channel) {
+            var message = await before.GetOrDownloadAsync();
+            Invoke((Action)delegate {
+                console_output_rt.AppendText($"{message} -> {after} \n");
+            });
         }
 
         private Task Client_Log(LogMessage msg) {

@@ -31,13 +31,13 @@
             // 
             this.console_output_rt.Location = new System.Drawing.Point(12, 12);
             this.console_output_rt.Name = "console_output_rt";
-            this.console_output_rt.Size = new System.Drawing.Size(367, 321);
+            this.console_output_rt.Size = new System.Drawing.Size(1242, 579);
             this.console_output_rt.TabIndex = 2;
             this.console_output_rt.Text = "";
             // 
             // connect_btn
             // 
-            this.connect_btn.Location = new System.Drawing.Point(12, 350);
+            this.connect_btn.Location = new System.Drawing.Point(446, 597);
             this.connect_btn.Name = "connect_btn";
             this.connect_btn.Size = new System.Drawing.Size(367, 23);
             this.connect_btn.TabIndex = 3;
@@ -49,7 +49,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(391, 385);
+            this.ClientSize = new System.Drawing.Size(1266, 632);
             this.Controls.Add(this.connect_btn);
             this.Controls.Add(this.console_output_rt);
             this.Name = "Form1";
@@ -61,7 +61,7 @@
         #endregion
 
         private System.Windows.Forms.RichTextBox console_output_rt;
-        private System.Windows.Forms.Button connect_btn;
+        public System.Windows.Forms.Button connect_btn;
     }
 }
 
