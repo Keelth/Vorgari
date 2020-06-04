@@ -9,19 +9,15 @@ using System.Threading.Tasks;
 
 namespace Vorgari {
     public class CommandHandler {
-        private readonly DiscordSocketClient _client;
-        private readonly CommandService _commands;
+        DiscordSocketClient _client;
+        CommandService _commands;
 
-        public CommandHandler(DiscordSocketClient client, CommandService commands) {
-            _client = client;
-            _commands = commands;
-        }
-
-        public async Task InstallCommandsAsync() {
-            _client.MessageReceived += HandleCommandAsync;
-
+        public async Task InstallCommandsAsync(DiscordSocketClient cliente) {
+            _client = cliente;
+            _commands = new CommandService();
             await _commands.AddModulesAsync(assembly: Assembly.GetEntryAssembly(),
                 services: null);
+            _client.MessageReceived += HandleCommandAsync;
         }
 
         private async Task HandleCommandAsync(SocketMessage messageParam) {
@@ -30,12 +26,10 @@ namespace Vorgari {
 
             int argPos = 0;
 
-            if(message.HasStringPrefix(GlobalVariables.cmdPrefix, ref argPos) || 
-                    message.HasMentionPrefix(_client.CurrentUser, ref argPos) ||
-                    message.Author.IsBot) {
-
+            if (!(message.HasStringPrefix(GlobalVariables.cmdPrefix, ref argPos) ||
+            message.HasMentionPrefix(_client.CurrentUser, ref argPos)) ||
+            message.Author.IsBot)
                 return;
-            }
 
             var context = new SocketCommandContext(_client, message);
 

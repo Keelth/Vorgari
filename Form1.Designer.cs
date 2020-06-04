@@ -59,9 +59,8 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.RichTextBox console_output_rt;
         public System.Windows.Forms.Button connect_btn;
+        public System.Windows.Forms.RichTextBox console_output_rt;
     }
 }
 

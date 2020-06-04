@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 namespace Vorgari {
     static class GlobalVariables {
 
-        public static string cmdPrefix;
+        public static string cmdPrefix = "!";
+        
     }
 }

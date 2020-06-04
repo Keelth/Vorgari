@@ -8,12 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Discord;
+using Discord.Commands;
 using Discord.WebSocket;
 
 namespace Vorgari {
     public partial class Form1: Form {
 
         private DiscordSocketClient _client;
+        private CommandHandler _handler;
         private static readonly Form1 instance = new Form1();
 
         public static Form1 Instance {
@@ -34,9 +36,10 @@ namespace Vorgari {
             });
 
             _client.Log += Client_Log;
-
             await _client.LoginAsync(TokenType.Bot, Environment.GetEnvironmentVariable("VORGARI_BOT"));
             await _client.StartAsync();
+            _handler = new CommandHandler();
+            await _handler.InstallCommandsAsync(_client);
             _client.MessageUpdated += MessageUpdated;
             _client.ReactionAdded += HandleReactionAddedAsync;
             await Task.Delay(-1);
