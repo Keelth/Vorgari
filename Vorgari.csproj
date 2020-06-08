@@ -103,6 +103,7 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="GlobalVariables.cs" />
+    <Compile Include="Modules\Core\ReactionToRole.cs" />
     <Compile Include="Modules\LeagueOfLegends\Op.GG.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

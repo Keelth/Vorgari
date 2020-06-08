@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
+using Vorgari.Modules.Core;
 
 namespace Vorgari {
     public partial class Form1: Form {
@@ -17,6 +18,7 @@ namespace Vorgari {
         private DiscordSocketClient _client;
         private CommandHandler _handler;
         private static readonly Form1 instance = new Form1();
+        public List<long> messagesID { get; set; } = new List<long>();
 
         public static Form1 Instance {
             get {
@@ -49,13 +51,15 @@ namespace Vorgari {
             ISocketMessageChannel originChannel,
             SocketReaction reaction) {
             var message = await cachedMessage.GetOrDownloadAsync();
-            if (message != null && reaction.User.IsSpecified && message.Id == 717189399124770826) {
+            ReactionToRole RTR = new ReactionToRole(reaction, message, originChannel);
+            await RTR.addRoleAsync();
+            /*if (message != null && reaction.User.IsSpecified && message.Id == 717189399124770826) {
                 Invoke((Action)delegate {
                     console_output_rt.AppendText($"{DateTime.Now.TimeOfDay.ToString().Split('.')[0]} {reaction.User.Value} just added a reaction '{reaction.Emote}' " +
                       $"to {message.Author}'s message ({message.Id}). \n");
                     ((SocketGuildUser)reaction.User).AddRoleAsync(((SocketGuildChannel)originChannel).Guild.GetRole(717536020446314507));
                 });
-            }
+            }*/
         }
 
         private async Task MessageUpdated(Cacheable<IMessage, ulong> before,
