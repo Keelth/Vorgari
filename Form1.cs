@@ -4,12 +4,14 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
+using Vorgari.Modules.BDO;
 using Vorgari.Modules.Core;
 
 namespace Vorgari {
@@ -26,12 +28,12 @@ namespace Vorgari {
             }
         }
 
-
         public Form1() {
             InitializeComponent();
         }
 
         private async void connect_btn_Click(object sender, EventArgs e) {
+            GlobalVariables.Init();
             _client = new DiscordSocketClient(new DiscordSocketConfig() {
                 LogLevel = LogSeverity.Verbose,
                 MessageCacheSize = 100
@@ -44,6 +46,7 @@ namespace Vorgari {
             await _handler.InstallCommandsAsync(_client);
             _client.MessageUpdated += MessageUpdated;
             _client.ReactionAdded += HandleReactionAddedAsync;
+            new BossTimer(_client);
             await Task.Delay(-1);
         }
 

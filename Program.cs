@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using HtmlAgilityPack;
+using Quartz;
 
 namespace Vorgari {
     static class Program {
@@ -16,6 +17,8 @@ namespace Vorgari {
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
             HtmlWeb webp = new HtmlWeb();
+
+
         }
     }
 }

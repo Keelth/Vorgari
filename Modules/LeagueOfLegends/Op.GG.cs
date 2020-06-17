@@ -93,16 +93,12 @@ namespace Vorgari.Modules.LeagueOfLegends {
 
         [Command("echo")]
         public async Task Echo([Remainder] string msg) {
-            //Embed
             Form1.Instance.console_output_rt.AppendText("Entre");
             var embed = new EmbedBuilder();
             embed.WithTitle("Echoed message");
             embed.WithDescription(msg);
             embed.WithColor(new Discord.Color(0, 255, 0));
             await Context.Channel.SendMessageAsync("", false, embed.Build());
-
-            //Normal
-            //await Context.Channel.SendMessageAsync(msg);
         }
 
 

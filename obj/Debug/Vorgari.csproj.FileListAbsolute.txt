@@ -42,3 +42,6 @@ C:\Alvaro\Vorgari\obj\Debug\Vorgari.pdb
 C:\Alvaro\Vorgari\bin\Debug\HtmlAgilityPack.dll
 C:\Alvaro\Vorgari\bin\Debug\HtmlAgilityPack.pdb
 C:\Alvaro\Vorgari\bin\Debug\HtmlAgilityPack.xml
+C:\Alvaro\Vorgari\bin\Debug\Quartz.dll
+C:\Alvaro\Vorgari\bin\Debug\Quartz.pdb
+C:\Alvaro\Vorgari\bin\Debug\Quartz.xml
